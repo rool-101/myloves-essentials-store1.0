@@ -2,6 +2,8 @@ import React,{useEffect,useState} from "react";
 import {Routes,Route,Link,useNavigate,useParams} from "react-router-dom";
 import {Menu,ShoppingCart,Search,ChevronRight,Plus,Minus,Trash2,ArrowLeft,ShieldCheck,Truck,MessageCircle} from "lucide-react";
 import {supabase} from "./supabase";
+import AdminLogin from "./AdminLogin";
+import AdminDashboard from "./AdminDashboard";
 
 const demo=[
  {id:"d1",name:"Nike Air Max",slug:"nike-air-max",price:1899,main_image_url:"",category:{name:"Sneakers"},brand:{name:"Nike"},description:"Premium Nike sneaker."},
@@ -68,5 +70,29 @@ function Policies(){
  return <Info title="Terms & Conditions"><h2>1. Orders</h2><p>Orders are requests to purchase products. We will confirm availability, pricing and delivery details before finalising an order.</p><h2>2. Products</h2><p>Product images, colours and displays may vary. Sneaker sizing and iPhone specifications should be checked carefully before ordering.</p><h2>3. Pricing & Payment</h2><p>Prices are shown in South African Rand. Payment instructions will be supplied when an order is confirmed.</p><h2>4. Delivery</h2><p>Delivery timing and fees depend on destination and will be confirmed before dispatch.</p><h2>5. WhatsApp Checkout</h2><p>WhatsApp checkout sends your cart details to our business number for order processing.</p><h2>6. Privacy</h2><p>We use information needed to process enquiries and orders and should handle personal information in accordance with applicable law.</p><h2>7. Consumer Rights</h2><p>Nothing in these terms limits any rights you have under applicable South African consumer-protection law.</p><h2>8. Changes</h2><p>We may update these terms when necessary. The latest version will be published on this page.</p></Info>
 }
 function Refunds(){return <Info title="Returns & Refund Policy"><h2>Change of mind</h2><p>We do not offer change-of-mind refunds except where a refund, return or cancellation is required by applicable law.</p><h2>Defective or incorrect products</h2><p>If a product is defective, unsafe, materially different from what was ordered, or otherwise qualifies for a remedy under applicable law, contact us as soon as possible with your order details and photographs where relevant.</p><h2>Before ordering</h2><p>Please check sneaker size, iPhone model, storage, colour and condition carefully before confirming your order.</p><h2>Legal rights</h2><p>This policy does not remove or reduce any rights you may have under applicable South African consumer-protection law.</p><h2>Contact</h2><p>WhatsApp: +27 68 758 2714</p></Info>}
-function App(){return <Layout><Routes><Route path="/" element={<Home/>}/><Route path="/sneakers" element={<Catalog kind="Sneakers"/>}/><Route path="/iphones" element={<Catalog kind="iPhones"/>}/><Route path="/product/:id" element={<Product/>}/><Route path="/cart" element={<Cart/>}/><Route path="/about" element={<Info title="About Us"><p>Premium sneakers and iPhones, curated for modern customers who value quality, style and convenience.</p></Info>}/><Route path="/delivery" element={<Info title="Delivery"><p>Delivery options, fees and expected timelines will be confirmed for each order before dispatch.</p></Info>}/><Route path="/payment" element={<Info title="Payment"><p>Payment details will be provided after product availability and delivery details are confirmed.</p></Info>}/><Route path="/contact" element={<Info title="Contact"><p>WhatsApp: +27 68 758 2714</p></Info>}/><Route path="/terms" element={<Policies/>}/><Route path="/refunds" element={<Refunds/>}/></Routes></Layout>}
+
+function StoreRoutes(){
+ return <Layout><Routes>
+  <Route path="/" element={<Home/>}/>
+  <Route path="/sneakers" element={<Catalog kind="Sneakers"/>}/>
+  <Route path="/iphones" element={<Catalog kind="iPhones"/>}/>
+  <Route path="/product/:id" element={<Product/>}/>
+  <Route path="/cart" element={<Cart/>}/>
+  <Route path="/about" element={<Info title="About Us"><p>Premium sneakers and iPhones, curated for modern customers who value quality, style and convenience.</p></Info>}/>
+  <Route path="/delivery" element={<Info title="Delivery"><p>Delivery options, fees and expected timelines will be confirmed for each order before dispatch.</p></Info>}/>
+  <Route path="/payment" element={<Info title="Payment"><p>Payment details will be provided after product availability and delivery details are confirmed.</p></Info>}/>
+  <Route path="/contact" element={<Info title="Contact"><p>WhatsApp: +27 68 758 2714</p></Info>}/>
+  <Route path="/terms" element={<Policies/>}/>
+  <Route path="/refunds" element={<Refunds/>}/>
+ </Routes></Layout>
+}
+
+function App(){
+ return <Routes>
+  <Route path="/admin/login" element={<AdminLogin/>}/>
+  <Route path="/admin" element={<AdminDashboard/>}/>
+  <Route path="*" element={<StoreRoutes/>}/>
+ </Routes>
+}
+
 export default App;
